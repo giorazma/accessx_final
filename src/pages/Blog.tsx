@@ -5,56 +5,7 @@ import Footer from "@/components/Footer";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import aiUxImage from "@/assets/ai-ux-research.jpg";
-
-interface Insight {
-  id: string;
-  title: string;
-  featured_image: string | null;
-  description: string;
-  author_name: string;
-  published_date: string;
-  slug: string;
-}
-
-// Static insights data
-const staticInsights: Insight[] = [
-  {
-    id: "1",
-    title: "The Power of Inclusive Design Thinking",
-    featured_image: null,
-    description: "Discover how inclusive design principles can transform your product strategy and create experiences that work for everyone, not just the average user.",
-    author_name: "Sarah Chen",
-    published_date: "2025-01-15",
-    slug: "inclusive-design-thinking"
-  },
-  {
-    id: "2",
-    title: "WCAG 2.2: What's New and Why It Matters",
-    featured_image: null,
-    description: "A comprehensive guide to the latest Web Content Accessibility Guidelines updates and how they impact your digital products in 2025.",
-    author_name: "AccessX Team",
-    published_date: "2025-01-10",
-    slug: "wcag-2-2-updates"
-  },
-  {
-    id: "3",
-    title: "Color Contrast: Beyond the Basics",
-    featured_image: null,
-    description: "Learn advanced techniques for ensuring your color palette works for users with various types of color vision deficiencies.",
-    author_name: "Maria Rodriguez",
-    published_date: "2025-01-05",
-    slug: "color-contrast-advanced"
-  },
-  {
-    id: "4",
-    title: "Screen Reader Testing for Designers",
-    featured_image: null,
-    description: "A practical guide for designers to understand and test their work with screen readers, ensuring truly accessible experiences.",
-    author_name: "James Wilson",
-    published_date: "2024-12-28",
-    slug: "screen-reader-testing"
-  }
-];
+import { staticInsights } from "@/data/staticInsights";
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");

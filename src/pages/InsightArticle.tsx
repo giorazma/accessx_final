@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
+import { staticInsightDetails } from "@/data/staticInsights";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -14,14 +15,22 @@ interface Insight {
   body: string;
   author_name: string;
   published_date: string;
+  slug: string;
 }
 
 const InsightArticle = () => {
   const { slug } = useParams();
   const [insight, setInsight] = useState<Insight | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isSupabaseConfigured);
+  const fallbackInsight = slug ? staticInsightDetails[slug] : undefined;
 
   useEffect(() => {
+    if (!supabase) {
+      console.warn("Supabase is not configured. Skipping insight fetch.");
+      setLoading(false);
+      return;
+    }
+
     const fetchInsight = async () => {
       const { data, error } = await supabase
         .from("insights")
@@ -40,6 +49,28 @@ const InsightArticle = () => {
     fetchInsight();
   }, [slug]);
 
+  if (!isSupabaseConfigured && !fallbackInsight) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <main className="pt-32 pb-20">
+          <div className="container mx-auto px-6 lg:px-12 text-center space-y-4">
+            <h1 className="text-4xl font-black">Supabase not configured</h1>
+            <p className="text-muted-foreground">
+              Set the <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> environment variables to enable insight content.
+            </p>
+            <Link to="/insights">
+              <Button variant="outline" className="rounded-full">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Insights
+              </Button>
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen">
@@ -56,7 +87,9 @@ const InsightArticle = () => {
     );
   }
 
-  if (!insight) {
+  const resolvedInsight = insight ?? fallbackInsight ?? null;
+
+  if (!resolvedInsight) {
     return (
       <div className="min-h-screen">
         <Navigation />
@@ -86,11 +119,11 @@ const InsightArticle = () => {
             Back to Insights
           </Link>
 
-          {insight.featured_image && (
+          {resolvedInsight.featured_image && (
             <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8">
-              <img 
-                src={insight.featured_image} 
-                alt={insight.title}
+              <img
+                src={resolvedInsight.featured_image}
+                alt={resolvedInsight.title}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -98,19 +131,19 @@ const InsightArticle = () => {
 
           <header className="mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-balance">
-              {insight.title}
+              {resolvedInsight.title}
             </h1>
-            
+
             <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-              {insight.description}
+              {resolvedInsight.description}
             </p>
 
             <div className="flex items-center gap-4 text-muted-foreground">
-              <span className="font-semibold">{insight.author_name}</span>
+              <span className="font-semibold">{resolvedInsight.author_name}</span>
               <span>•</span>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                {new Date(insight.published_date).toLocaleDateString("en-US", {
+                {new Date(resolvedInsight.published_date).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
@@ -119,9 +152,9 @@ const InsightArticle = () => {
             </div>
           </header>
 
-          <div 
+          <div
             className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-accent prose-img:rounded-2xl"
-            dangerouslySetInnerHTML={{ __html: insight.body }}
+            dangerouslySetInnerHTML={{ __html: resolvedInsight.body }}
           />
         </article>
       </main>

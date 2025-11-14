@@ -5,56 +5,7 @@ import CalendlyModal from "@/components/CalendlyModal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-
-interface Work {
-  id: string;
-  title: string;
-  thumbnail_image: string | null;
-  category: string;
-  description: string;
-  tags: string[] | null;
-  slug: string;
-}
-
-// Static works data
-const staticWorks: Work[] = [
-  {
-    id: "1",
-    title: "E-Commerce Platform Accessibility Overhaul",
-    thumbnail_image: null,
-    category: "Accessibility Audit",
-    description: "Transformed a leading e-commerce platform to meet WCAG 2.2 AA standards, resulting in 40% increase in conversions from users with disabilities.",
-    tags: ["WCAG 2.2", "E-Commerce", "Screen Readers"],
-    slug: "ecommerce-accessibility"
-  },
-  {
-    id: "2",
-    title: "Healthcare App UX Research",
-    thumbnail_image: null,
-    category: "UX Research",
-    description: "Conducted comprehensive user research with elderly patients to redesign a telehealth platform for improved usability and accessibility.",
-    tags: ["Healthcare", "User Research", "Inclusive Design"],
-    slug: "healthcare-ux-research"
-  },
-  {
-    id: "3",
-    title: "Banking App Inclusive Redesign",
-    thumbnail_image: null,
-    category: "UI/UX Design",
-    description: "Reimagined a mobile banking experience to serve users with cognitive disabilities, low vision, and motor impairments.",
-    tags: ["Finance", "Mobile Design", "Cognitive Accessibility"],
-    slug: "banking-inclusive-design"
-  },
-  {
-    id: "4",
-    title: "Educational Platform Audit & Training",
-    thumbnail_image: null,
-    category: "Design Audit",
-    description: "Performed detailed accessibility audit and provided team training for a major online learning platform reaching millions of students.",
-    tags: ["Education", "Audit", "Team Training"],
-    slug: "education-platform-audit"
-  }
-];
+import { staticWorks } from "@/data/staticWorks";
 
 const Works = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);

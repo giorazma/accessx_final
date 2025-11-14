@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
+import { staticWorkDetails } from "@/data/staticWorks";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -15,14 +16,22 @@ interface Work {
   case_study_body: string;
   external_link: string | null;
   tags: string[] | null;
+  slug: string;
 }
 
 const WorkDetail = () => {
   const { slug } = useParams();
   const [work, setWork] = useState<Work | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isSupabaseConfigured);
+  const fallbackWork = slug ? staticWorkDetails[slug] : undefined;
 
   useEffect(() => {
+    if (!supabase) {
+      console.warn("Supabase is not configured. Skipping work fetch.");
+      setLoading(false);
+      return;
+    }
+
     const fetchWork = async () => {
       const { data, error } = await supabase
         .from("works")
@@ -41,6 +50,28 @@ const WorkDetail = () => {
     fetchWork();
   }, [slug]);
 
+  if (!isSupabaseConfigured && !fallbackWork) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <main className="pt-32 pb-20">
+          <div className="container mx-auto px-6 lg:px-12 text-center space-y-4">
+            <h1 className="text-4xl font-black">Supabase not configured</h1>
+            <p className="text-muted-foreground">
+              Set the <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> environment variables to enable case study content.
+            </p>
+            <Link to="/works">
+              <Button variant="outline" className="rounded-full">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Works
+              </Button>
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen">
@@ -57,7 +88,9 @@ const WorkDetail = () => {
     );
   }
 
-  if (!work) {
+  const resolvedWork = work ?? fallbackWork ?? null;
+
+  if (!resolvedWork) {
     return (
       <div className="min-h-screen">
         <Navigation />
@@ -79,7 +112,7 @@ const WorkDetail = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      
+
       <main className="pt-32 pb-20">
         <article className="container mx-auto px-6 lg:px-12 max-w-5xl">
           <Link to="/works" className="inline-flex items-center gap-2 text-accent font-semibold mb-8 hover:gap-3 transition-smooth">
@@ -87,11 +120,11 @@ const WorkDetail = () => {
             Back to Works
           </Link>
 
-          {work.thumbnail_image && (
+          {resolvedWork.thumbnail_image && (
             <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8">
-              <img 
-                src={work.thumbnail_image} 
-                alt={work.title}
+              <img
+                src={resolvedWork.thumbnail_image}
+                alt={resolvedWork.title}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -100,21 +133,21 @@ const WorkDetail = () => {
           <header className="mb-12">
             <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
               <span className="px-3 py-1 bg-accent/10 rounded-full font-medium text-accent">
-                {work.category}
+                {resolvedWork.category}
               </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-balance">
-              {work.title}
+              {resolvedWork.title}
             </h1>
-            
+
             <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-              {work.description}
+              {resolvedWork.description}
             </p>
 
-            {work.tags && work.tags.length > 0 && (
+            {resolvedWork.tags && resolvedWork.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
-                {work.tags.map((tag) => (
+                {resolvedWork.tags.map((tag) => (
                   <span
                     key={tag}
                     className="px-3 py-1 bg-secondary rounded-full text-sm font-medium"
@@ -125,9 +158,9 @@ const WorkDetail = () => {
               </div>
             )}
 
-            {work.external_link && (
-              <a 
-                href={work.external_link}
+            {resolvedWork.external_link && (
+              <a
+                href={resolvedWork.external_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-smooth"
@@ -137,9 +170,9 @@ const WorkDetail = () => {
             )}
           </header>
 
-          <div 
+          <div
             className="prose prose-lg max-w-none prose-headings:font-bold prose-a:text-accent prose-img:rounded-2xl"
-            dangerouslySetInnerHTML={{ __html: work.case_study_body }}
+            dangerouslySetInnerHTML={{ __html: resolvedWork.case_study_body }}
           />
         </article>
       </main>
