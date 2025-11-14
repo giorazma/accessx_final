@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -20,9 +20,15 @@ interface Work {
 const WorkDetail = () => {
   const { slug } = useParams();
   const [work, setWork] = useState<Work | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isSupabaseConfigured);
 
   useEffect(() => {
+    if (!supabase) {
+      console.warn("Supabase is not configured. Skipping work fetch.");
+      setLoading(false);
+      return;
+    }
+
     const fetchWork = async () => {
       const { data, error } = await supabase
         .from("works")
@@ -40,6 +46,28 @@ const WorkDetail = () => {
 
     fetchWork();
   }, [slug]);
+
+  if (!isSupabaseConfigured) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <main className="pt-32 pb-20">
+          <div className="container mx-auto px-6 lg:px-12 text-center space-y-4">
+            <h1 className="text-4xl font-black">Supabase not configured</h1>
+            <p className="text-muted-foreground">
+              Set the <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> environment variables to enable case study content.
+            </p>
+            <Link to="/works">
+              <Button variant="outline" className="rounded-full">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Works
+              </Button>
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
