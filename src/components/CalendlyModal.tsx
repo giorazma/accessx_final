@@ -13,7 +13,7 @@ const CalendlyModal = ({ isOpen, onClose }: CalendlyModalProps) => {
           <DialogTitle>Schedule a Call</DialogTitle>
         </DialogHeader>
         <iframe
-          src="https://calendly.com/"
+          src="https://calendly.com/mazanashvilisalome/30min"
           className="w-full h-full rounded-lg"
           frameBorder="0"
           title="Schedule a call with us"

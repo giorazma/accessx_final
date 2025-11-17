@@ -130,7 +130,7 @@ const Contact = () => {
                   </a>
                   <div className="mt-8 w-full">
                     <iframe
-                      src="https://calendly.com/"
+                      src="https://calendly.com/mazanashvilisalome/30min"
                       width="100%"
                       height="400"
                       frameBorder="0"
