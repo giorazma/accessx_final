@@ -22,7 +22,7 @@ const Footer = () => {
               <span className="text-2xl font-black">accessX</span>
             </div>
             <p className="text-muted-foreground">
-              Transform your digital products with research-driven insights
+              Research-driven insights for better digital products
             </p>
           </div>
 
@@ -36,9 +36,10 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/careers" className="text-muted-foreground hover:text-foreground transition-smooth">
+              {/*  <Link to="/careers" className="text-muted-foreground hover:text-foreground transition-smooth">
                   Careers
                 </Link>
+                */}
               </li>
               <li>
                 <Link to="/insights" className="text-muted-foreground hover:text-foreground transition-smooth">
@@ -55,9 +56,10 @@ const Footer = () => {
                 <h4 className="font-bold mb-4 text-lg">Quick Links</h4>
                 <ul className="space-y-3">
                   <li>
-                    <Link to="/works" className="text-muted-foreground hover:text-foreground transition-smooth">
+                   {/* <Link to="/works" className="text-muted-foreground hover:text-foreground transition-smooth">
                       Our Work
                     </Link>
+                    */}
                   </li>
                   <li>
                     <Link to="/services" className="text-muted-foreground hover:text-foreground transition-smooth">
