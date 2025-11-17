@@ -24,8 +24,9 @@ const Navigation = () => {
             <span>accessX</span>
           </Link>
 
-          {/*{/* Desktop Navigation */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6">
+            {/*
             <Link 
               to="/works" 
               className={`font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-accent after:transition-transform ${
