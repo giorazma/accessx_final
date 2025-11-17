@@ -21,7 +21,7 @@ const staticInsights: Insight[] = [
   {
     id: "1",
     title: "Design Creates Impact by Translating User Needs into Business Success",
-    featured_image: https://www.freepik.com/pikaso/explore/otQuM829FP,
+    featured_image: null,
     description: "In today's digital-first world, design is not just about how things look — it's about how well they work, for users and for business. Discover how user needs drive meaningful experiences and business results.",
     author_name: "AccessX Team",
     published_date: "2025-01-17",
