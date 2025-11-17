@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import aiUxImage from "@/assets/ai-ux-research.jpg";
+import designImpactImage from "@/assets/3550f424-9762-4568-ab38-52186b47b995.jpeg";
 
 interface Insight {
   id: string;
@@ -21,7 +22,7 @@ const staticInsights: Insight[] = [
   {
     id: "1",
     title: "Design Creates Impact by Translating User Needs into Business Success",
-    featured_image: null,
+    featured_image: designImpactImage,
     description: "In today's digital-first world, design is not just about how things look — it's about how well they work, for users and for business. Discover how user needs drive meaningful experiences and business results.",
     author_name: "AccessX Team",
     published_date: "2025-01-17",
