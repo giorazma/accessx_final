@@ -30,30 +30,30 @@ const staticInsights: Insight[] = [
   },
   {
     id: "2",
-    title: "WCAG 2.2: What's New and Why It Matters",
+    title: "How To Measure UX and Design Impact",
     featured_image: null,
-    description: "A comprehensive guide to the latest Web Content Accessibility Guidelines updates and how they impact your digital products in 2025.",
+    description: "In modern product teams, UX and Design are strategic drivers of business performance. Learn how to measure design impact across user experience, product performance, and business outcomes.",
     author_name: "AccessX Team",
     published_date: "2025-01-10",
-    slug: "wcag-2-2-updates"
+    slug: "measure-ux-design-impact"
   },
   {
     id: "3",
-    title: "Color Contrast: Beyond the Basics",
+    title: "European Accessibility Act (EAA): Why WCAG AA Isn't Enough",
     featured_image: null,
-    description: "Learn advanced techniques for ensuring your color palette works for users with various types of color vision deficiencies.",
-    author_name: "Maria Rodriguez",
+    description: "The EAA is reshaping how digital products are designed across the EU. Discover why WCAG compliance alone doesn't meet EAA requirements.",
+    author_name: "AccessX Team",
     published_date: "2025-01-05",
-    slug: "color-contrast-advanced"
+    slug: "eaa-beyond-wcag"
   },
   {
     id: "4",
-    title: "Screen Reader Testing for Designers",
+    title: "How To Measure the Impact of Features",
     featured_image: null,
-    description: "A practical guide for designers to understand and test their work with screen readers, ensuring truly accessible experiences.",
-    author_name: "James Wilson",
+    description: "High-performing product teams treat every feature as an experiment. Learn how to validate features with real data and turn releases into evidence-based decisions.",
+    author_name: "AccessX Team",
     published_date: "2024-12-28",
-    slug: "screen-reader-testing"
+    slug: "measure-feature-impact"
   }
 ];
 
