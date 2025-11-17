@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
-                <span className="text-primary font-black text-lg">aX</span>
+                <span className="text-primary font-white text-lg">aX</span>
               </div>
               <span className="text-2xl font-black">accessX</span>
             </div>
