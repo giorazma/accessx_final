@@ -6,9 +6,6 @@ import { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import designImpactImage from "@/assets/3550f424-9762-4568-ab38-52186b47b995.jpeg";
-import firstBlogImage from "@/assets/first.jpg";
-import secondBlogImage from "@/assets/second.jpg";
-import thirdBlogImage from "@/assets/third.jpg";
 
 interface Insight {
   id: string;
@@ -100,7 +97,7 @@ const staticInsightsWithBody: Insight[] = [
   {
     id: "2",
     title: "How To Measure UX and Design Impact",
-    featured_image: firstBlogImage,
+    featured_image: null,
     description: "In modern product teams, UX and Design are strategic drivers of business performance. Learn how to measure design impact across user experience, product performance, and business outcomes.",
     author_name: "AccessX Team",
     published_date: "2025-01-10",
@@ -265,7 +262,7 @@ const staticInsightsWithBody: Insight[] = [
   {
     id: "3",
     title: "European Accessibility Act (EAA): Why WCAG AA Isn't Enough",
-    featured_image: secondBlogImage,
+    featured_image: null,
     description: "The EAA is reshaping how digital products are designed across the EU. Discover why WCAG compliance alone doesn't meet EAA requirements.",
     author_name: "AccessX Team",
     published_date: "2025-01-05",
@@ -458,7 +455,7 @@ const staticInsightsWithBody: Insight[] = [
   {
     id: "4",
     title: "How To Measure the Impact of Features",
-    featured_image: thirdBlogImage,
+    featured_image: null,
     description: "High-performing product teams treat every feature as an experiment. Learn how to validate features with real data and turn releases into evidence-based decisions.",
     author_name: "AccessX Team",
     published_date: "2024-12-28",
