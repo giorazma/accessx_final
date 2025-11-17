@@ -8,11 +8,11 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-3 sm:space-y-4 lg:space-y-5 animate-fade-in">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-balance leading-[1.05]">
-              Transform your digital products with{" "}
-              <span className="block">research-driven insights</span>
+              Research-driven insights for{" "}
+              <span className="block">better digital products</span>
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed">
-              Get fully dedicated, scalable accessibility and UX teams adjusted to your workstyle.
+              Dedicated, scalable accessibility and UX support.
             </p>
           </div>
 
